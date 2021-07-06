@@ -31,18 +31,20 @@ RSpec.describe Oystercard do
       end
 
       it 'can be activated at the start of a journey' do
+        subject.top_up(10)
         subject.touch_in
         expect(subject).to be_in_journey
       end
 
       it "can be de-activated" do
+        subject.top_up(10)
         subject.touch_in
         subject.touch_out
         expect(subject).not_to be_in_journey
       end
 
       it 'will not activate if below a minimum balance' do
-        expect{ subject.touch_out }.to raise_error "Insufficient balance to activate"
+        expect{ subject.touch_in }.to raise_error "Insufficient balance to activate"
       end
       
       
