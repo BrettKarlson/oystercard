@@ -11,12 +11,7 @@ RSpec.describe Oystercard do
     it 'adds to the balance' do
       expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
     end
-
-    it 'deducts from the balance' do
-      subject.top_up(30)
-      expect{ subject.deduct 5 }.to change{ subject.balance }.by -5
-    end
-
+    
     it 'raises an error if maximum balance is exceeded' do
       maximum_balance = Oystercard::MAXIMUM_BALANCE
       subject.top_up(maximum_balance)
@@ -47,6 +42,13 @@ RSpec.describe Oystercard do
         expect{ subject.touch_in }.to raise_error "Insufficient balance to activate"
       end
       
+      describe '#touch_out' do
+        it 'confirm deduction made on touching out' do
+          subject.top_up(10)
+          subject.touch_in
+          expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
+        end
+      end
       
     end
 end
