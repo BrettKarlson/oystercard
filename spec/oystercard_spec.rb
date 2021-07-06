@@ -22,5 +22,29 @@ RSpec.describe Oystercard do
       subject.top_up(maximum_balance)
       expect{ subject.top_up 1 }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
     end
+  end
+
+    context 'status of the card' do
+
+      it 'is initially not in a journey' do
+      expect(subject).not_to be_in_journey
+      end
+
+      it 'can be activated at the start of a journey' do
+        subject.touch_in
+        expect(subject).to be_in_journey
+      end
+
+      it "can be de-activated" do
+        subject.touch_in
+        subject.touch_out
+        expect(subject).not_to be_in_journey
+      end
+
+      it 'will not activate if below a minimum balance' do
+        expect{ subject.touch_out }.to raise_error "Insufficient balance to activate"
+      end
+      
+      
     end
 end
