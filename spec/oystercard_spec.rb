@@ -37,7 +37,7 @@ RSpec.describe Oystercard do
      it "can be de-activated" do
        subject.top_up(10)
        subject.touch_in(entry_station)
-       subject.touch_out
+       subject.touch_out(exit_station)
        expect(subject).not_to be_in_journey
      end
 
@@ -50,17 +50,26 @@ RSpec.describe Oystercard do
         subject.touch_in(entry_station)
         expect(subject.entry_station).to eq entry_station
       end
+
+      let(:journey) { {entry_station: entry_station, exit_station: exit_station} }
+      
+      it 'stores the journey' do
+        subject.top_up(10)
+        subject.touch_in(entry_station)
+        subject.touch_out(exit_station)
+        expect(subject.journeys).to include journey
+      end
       
       describe '#touch_out' do
         it 'confirm deduction made on touching out' do
           subject.top_up(10)
           subject.touch_in(entry_station)
-          expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
+          expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
         end
         it 'reset entry station to nil upon touching out' do
           subject.top_up(10)
           subject.touch_in(entry_station)
-          subject.touch_out
+          subject.touch_out(exit_station)
           expect(subject.entry_station).to eq nil
         end
       end
