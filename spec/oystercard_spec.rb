@@ -66,6 +66,7 @@ RSpec.describe Oystercard do
           subject.touch_in(entry_station)
           expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
         end
+        
         it 'reset entry station to nil upon touching out' do
           subject.top_up(10)
           subject.touch_in(entry_station)
