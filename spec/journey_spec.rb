@@ -1,7 +1,7 @@
 require 'journey'
 require 'oystercard'
 
-describe Journey do
+RSpec.describe Journey do
 
   let(:minimum) { Oystercard::MINIMUM_CHARGE }
   let(:card) { Oystercard.new }
@@ -12,7 +12,7 @@ describe Journey do
 
     it 'deducts default penalty fare' do
       card.top_up(20)
-      expect(subject.fare).to eq (penalty)
+      expect(subject.fare).to eq(penalty)
     end
   end
 
@@ -44,6 +44,10 @@ describe Journey do
 
       it 'calculates a fare' do
         expect(subject.fare).to eq 6
+      end
+
+      it 'knows if a journey is complete' do
+        expect(subject).not_to be_complete
       end
 
     end

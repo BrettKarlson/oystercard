@@ -24,14 +24,12 @@ class Oystercard
   def touch_in(entry_station)
     fail "Insufficient balance to activate" if balance < MINIMUM_CHARGE
     @entry_station = entry_station
-    @in_journey = true
   end
 
   def touch_out(exit_station)
     deduct(MINIMUM_CHARGE)
-    @journeys << {entry_station: @entry_station, exit_station: exit_station}
+    @journeys << { entry_station: @entry_station, exit_station: exit_station }
     @entry_station = nil
-    @in_journey = false
   end
 
   private
