@@ -1,4 +1,3 @@
-require_relative 'oystercard'
 
 class Journey
 
@@ -25,7 +24,6 @@ end
 
 def finish(exit_station)
  @exit_station = exit_station
- #self
 end
 
 end
