@@ -9,9 +9,9 @@ RSpec.describe JourneyLog do
 
 
   describe '#start' do
-    it 'starts a journey' do
-      expect(journey_class).to receive(:new).with(entry_station: station)
-      subject.start(station)
-    end
+    # it 'starts a journey' do
+    #   expect(journey_class).to receive(:new).with(entry_station: station)
+    #   subject.start(station)
+    # end
   end
 end

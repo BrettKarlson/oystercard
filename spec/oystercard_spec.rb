@@ -24,10 +24,6 @@ RSpec.describe Oystercard do
 
     context 'status of the card' do
 
-      it 'is initially not in a journey' do
-      expect(subject).not_to be_in_journey
-      end
-
      it 'can be activated at the start of a journey' do
        subject.top_up(10)
        subject.touch_in(entry_station)
@@ -48,7 +44,7 @@ RSpec.describe Oystercard do
       it 'records the entry station on touch in' do
         subject.top_up(10)
         subject.touch_in(entry_station)
-        expect(subject.entry_station).to eq entry_station
+        expect(subject.journey.entry_station).to eq entry_station
       end
 
       let(:journey) { {entry_station: entry_station, exit_station: exit_station} }
@@ -71,7 +67,7 @@ RSpec.describe Oystercard do
           subject.top_up(10)
           subject.touch_in(entry_station)
           subject.touch_out(exit_station)
-          expect(subject.entry_station).to eq nil
+          expect(subject.journey.entry_station).to eq nil
         end
       end
       

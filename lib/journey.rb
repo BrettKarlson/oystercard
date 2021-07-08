@@ -1,28 +1,31 @@
-#require_relative 'oystercard'
+require_relative 'oystercard'
 
 class Journey
 
 MINIMUM_CHARGE = 1
 PENALTY = 6
 
-attr_reader :entry_station, :exit_station
+attr_accessor :entry_station, :exit_station
 
 def initialize(entry_station = nil)
   @entry_station = entry_station
 end
 
 def fare
-  @journeys.nil? ? 6 : 1
+  @entry_station && @exit_station ? 1 : 6
+end
+
+def reset
+  @entry_station = @exit_station = nil
 end
 
 def complete?
-  !!@entry_station
+  !@entry_station.nil?
 end
 
 def finish(exit_station)
- @entry_station = nil 
  @exit_station = exit_station
- self
+ #self
 end
 
 end
