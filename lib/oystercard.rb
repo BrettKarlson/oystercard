@@ -4,7 +4,7 @@ class Oystercard
 
   MAXIMUM_BALANCE = 90
   MINIMUM_CHARGE = 1
-
+  
   attr_reader :balance, :journeys, :journey
 
   def initialize
@@ -23,7 +23,7 @@ class Oystercard
   end
   
   def in_journey?
-    !@journey.entry_station.nil?
+    !!@journey.entry_station
   end
 
   def touch_in(entry_station)
