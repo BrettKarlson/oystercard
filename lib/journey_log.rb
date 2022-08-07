@@ -3,7 +3,7 @@ require_relative 'journey'
 class JourneyLog
   attr_reader :journey_class, :entry_station, :exit_station
 
-  def initialize(journey_class = nil)
+  def initialize(journey_class: )
     @journey_class = journey_class
     @journeys = []
   end
